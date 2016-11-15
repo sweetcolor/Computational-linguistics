@@ -12,7 +12,44 @@ function createChart() {
     var text = document.getElementById('input-text').value;
     var words = extractWordsFromText(text);
     console.log(words);
-    console.log(normalizeWords(words));
+    var normalizedWords = normalizeWords(words);
+    console.log(normalizedWords);
+    console.log(createFrequencyDict(normalizedWords));
+}
+
+function createFrequencyDict(words) {
+    var wordsCount = countingEachWords(words);
+    var wordsCountGroup = makeWordsCountGroup(wordsCount).sort(compareNumbers);
+    return wordsCountGroup;
+}
+
+function makeWordsCountGroup(wordsCount) {
+    var wordsCountGroup = {};
+    var wordsCountGroupArray = [];
+    for (var word in wordsCount) {
+        if (!wordsCountGroup.hasOwnProperty(wordsCount[word])) {
+            wordsCountGroup[wordsCount[word]] = true;
+            wordsCountGroupArray.push(Number(wordsCount[word]));
+        }
+    }
+    return wordsCountGroupArray;
+}
+
+function compareNumbers(a, b) {
+    return b - a;
+}
+
+function countingEachWords(words) {
+    var wordsCount = {};
+    for (var i = 0; i < words.length; i++) {
+        var lowCaseWord = words[i].toLowerCase();
+        if (wordsCount.hasOwnProperty(lowCaseWord)) {
+            wordsCount[lowCaseWord] += 1;
+        } else {
+            wordsCount[lowCaseWord] = 1;
+        }
+    }
+    return wordsCount;
 }
 
 function extractWordsFromText(text) {
@@ -81,8 +118,7 @@ function normalizeWords(words_array) {
         var word = words_array[i];
         if (stopWords.indexOf(word) >= 0 || word.length <= 3) {
             normalized_words.push(word);
-        }
-        else {
+        } else {
             var basic_word = word;
             for (var j = 0; j < ends.length; j++) {
                 var regex = new RegExp(ends[i] + '$', 'i');
