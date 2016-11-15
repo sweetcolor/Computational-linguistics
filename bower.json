@@ -1,12 +1,14 @@
 {
-    "name": "Comp_lingv_1",
-    "version": "1.0.0",
-    "main": "path/to/main.css",
-    "ignore": [
-        ".jshintrc", "**/*.txt"
-    ],
-    "dependencies": {
-    },
-    "devDependencies": {
-    }
+  "name": "Comp_lingv_1",
+  "version": "1.0.0",
+  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "chart.js": "2.4.0",
+    "moment": "^2.16.0"
+  },
+  "devDependencies": {}
 }

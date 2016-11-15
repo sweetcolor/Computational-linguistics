@@ -11,10 +11,47 @@
 function createChart() {
     var text = document.getElementById('input-text').value;
     var words = extractWordsFromText(text);
-    console.log(words);
     var normalizedWords = normalizeWords(words);
-    console.log(normalizedWords);
-    console.log(createFrequencyDict(normalizedWords));
+    var freq = createFrequencyDict(normalizedWords);
+    drawChart(freq);
+}
+
+function drawChart(freq) {
+    var indexs = [];
+    for (var i = 0; i < freq.length; i++) {
+        indexs.push(i + 1);
+    }
+    var ctx = document.getElementById("chart");
+    var c = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: indexs,
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    spanGaps: false,
+                    data: freq
+                }
+            ]
+        }
+    });
 }
 
 function createFrequencyDict(words) {
@@ -78,7 +115,7 @@ function normalizeWords(words_array) {
         'ью', 'ая', 'ея', 'ия', 'оя', 'ся', 'уя', 'яя', 'ья', 'яй', 'а', 'е',
         'и', 'о', 'у', 'ы', 'ю', 'й', 'я', 'ь'
     ];
-    var stopWords = [
+    var stopWords = arrayToObject([
         'довольно', 'заведомо', 'например', 'несмотря', 'означает', 'означают',
         'отражена', 'отражено', 'отражены', 'показана', 'показано', 'показаны',
         'согласно', 'вкратце', 'вопреки', 'гораздо', 'касаясь', 'наконец',
@@ -112,11 +149,11 @@ function normalizeWords(words_array) {
         'бы', 'во', 'да', 'до', 'др', 'ее', 'ей', 'ею', 'же', 'за', 'из', 'им',
         'их', 'ли', 'на', 'не', 'ни', 'но', 'об', 'он', 'от', 'по', 'см', 'со',
         'те', 'то', 'а', 'в', 'и', 'к', 'о', 'с', 'у'
-    ];
+    ]);
     var normalized_words = [];
     for (var i = 0; i < words_array.length; i++) {
         var word = words_array[i];
-        if (stopWords.indexOf(word) >= 0 || word.length <= 3) {
+        if (stopWords.hasOwnProperty(word) || word.length <= 3) {
             normalized_words.push(word);
         } else {
             var basic_word = word;
@@ -130,4 +167,12 @@ function normalizeWords(words_array) {
         }
     }
     return normalized_words;
+}
+
+function arrayToObject(arr) {
+    var obj = {};
+    for (var i = 0; i < arr.length; i++) {
+        obj[arr[i]] = true;
+    }
+    return obj;
 }
