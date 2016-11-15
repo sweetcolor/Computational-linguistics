@@ -49,3 +49,16 @@ and open the template in the editor.
     width: 400px;
     height: 400px;
 }
+
+table, td, th {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    height: 50px;
+}

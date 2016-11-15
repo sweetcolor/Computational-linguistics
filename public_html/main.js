@@ -8,7 +8,7 @@
 /**
  * create chart by rank-frequency distribution
  */
-function createChart() {
+function createChart () {
     var text = document.getElementById('input-text').value;
     var words = extractWordsFromText(text);
     var normalizedWords = normalizeWords(words);
@@ -16,7 +16,7 @@ function createChart() {
     drawChart(freq);
 }
 
-function drawChart(freq) {
+function drawChart (freq) {
     var indexs = [];
     for (var i = 0; i < freq.length; i++) {
         indexs.push(i + 1);
@@ -54,13 +54,15 @@ function drawChart(freq) {
     });
 }
 
-function createFrequencyDict(words) {
+function createFrequencyDict (words) {
     var wordsCount = countingEachWords(words);
+    var wordsWithRank = sortProperties(wordsCount);
+    renderTable(wordsWithRank);
     var wordsCountGroup = makeWordsCountGroup(wordsCount).sort(compareNumbers);
     return wordsCountGroup;
 }
 
-function makeWordsCountGroup(wordsCount) {
+function makeWordsCountGroup (wordsCount) {
     var wordsCountGroup = {};
     var wordsCountGroupArray = [];
     for (var word in wordsCount) {
@@ -72,11 +74,11 @@ function makeWordsCountGroup(wordsCount) {
     return wordsCountGroupArray;
 }
 
-function compareNumbers(a, b) {
+function compareNumbers (a, b) {
     return b - a;
 }
 
-function countingEachWords(words) {
+function countingEachWords (words) {
     var wordsCount = {};
     for (var i = 0; i < words.length; i++) {
         var lowCaseWord = words[i].toLowerCase();
@@ -89,12 +91,12 @@ function countingEachWords(words) {
     return wordsCount;
 }
 
-function extractWordsFromText(text) {
+function extractWordsFromText (text) {
     var splitted_text = text.split(/\s/);
     var words_array = [];
     for (var i = 0; i < splitted_text.length; i++) {
         var splittedWord = splitted_text[i]
-                .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_`~()0-9]/g, ' ').split(' ');
+            .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_`~()0-9]/g, ' ').split(' ');
         for (var j = 0; j < splittedWord.length; j++) {
             if (splittedWord[j]) {
                 words_array.push(splittedWord[j]);
@@ -104,7 +106,7 @@ function extractWordsFromText(text) {
     return words_array;
 }
 
-function normalizeWords(words_array) {
+function normalizeWords (words_array) {
     var ends = [
         'иями', 'ьев', 'хим', 'ами', 'ими', 'ыми', 'ьми', 'ями', 'ией',
         'аей', 'еей', 'ьей', 'аем', 'еем', 'ием', 'оем', 'уем', 'яем', 'ьем',
@@ -169,7 +171,7 @@ function normalizeWords(words_array) {
     return normalized_words;
 }
 
-function arrayToObject(arr) {
+function arrayToObject (arr) {
     var obj = {};
     for (var i = 0; i < arr.length; i++) {
         obj[arr[i]] = true;
