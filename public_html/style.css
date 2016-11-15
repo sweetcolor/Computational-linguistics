@@ -11,10 +11,11 @@ and open the template in the editor.
 #input-text {
     border: 1px solid darkgrey;
     resize: vertical;
-    width: 95%;
+    width: 90%;
     border-radius: 13px;
     box-shadow: 0 0 8px #333333;
     margin-bottom: 15px;
+    padding: 14px;
 }
 
 .input-panel {
