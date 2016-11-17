@@ -12,7 +12,7 @@ function renderTable (wordsWithRank) {
 }
 
 
-function sortProperties (wordsCount) {
+function getWordsWithRank (wordsCount) {
     var sortable = [];
     for (var key in wordsCount)
         if (wordsCount.hasOwnProperty(key))

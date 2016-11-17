@@ -12,16 +12,14 @@ function createChart () {
     var text = document.getElementById('input-text').value;
     var words = extractWordsFromText(text);
     var normalizedWords = normalizeWords(words);
-    var freq = createFrequencyDict(normalizedWords);
+    var wordsCount = countingEachWords(normalizedWords);
+    
+    var colors = ['']
+    var rank = getWordsWithRank(wordsCount);
+    renderTable(rank);
+    var freq = makeWordsCountGroup(wordsCount).sort(compareNumbers);
     drawChart(freq);
-}
-
-function createFrequencyDict (words) {
-    var wordsCount = countingEachWords(words);
-    var wordsWithRank = sortProperties(wordsCount);
-    renderTable(wordsWithRank);
-    var wordsCountGroup = makeWordsCountGroup(wordsCount).sort(compareNumbers);
-    return wordsCountGroup;
+    var rankZone = determineWordsZone(rank, words.length);
 }
 
 function makeWordsCountGroup (wordsCount) {

@@ -10,7 +10,7 @@ function extractWordsFromText (text) {
     var words_array = [];
     for (var i = 0; i < splitted_text.length; i++) {
         var splittedWord = splitted_text[i]
-            .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_`~()0-9]/g, ' ').split(' ');
+            .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_—`~()0-9]/g, ' ').split(' ');
         for (var j = 0; j < splittedWord.length; j++) {
             if (splittedWord[j]) {
                 words_array.push(splittedWord[j]);
