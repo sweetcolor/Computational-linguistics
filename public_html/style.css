@@ -21,6 +21,7 @@ and open the template in the editor.
 .input-panel {
     width: 50%;
     float: left;
+    margin-bottom: 25px;
 }
 
 .wrapper {

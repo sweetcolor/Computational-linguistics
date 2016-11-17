@@ -8,7 +8,7 @@ function renderTable (wordsWithRank) {
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
-    })
+    });
 }
 
 
@@ -24,7 +24,6 @@ function sortProperties (wordsCount) {
 
     var rank = 1;
     return sortable.map(function (word, i, arr) {
-        var wordRank = null;
         if (i === 0) {
             word.push(rank);
             return word;
