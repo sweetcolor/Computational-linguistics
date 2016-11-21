@@ -5,12 +5,12 @@
  */
 
 
-function extractWordsFromText (text) {
+function extractWordsFromText(text) {
     var splitted_text = text.split(/\s/);
     var words_array = [];
     for (var i = 0; i < splitted_text.length; i++) {
         var splittedWord = splitted_text[i]
-            .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_—`~()0-9]/g, ' ').split(' ');
+                .replace(/[.,\/#!$%«»–\^&\*;:{}=?\-_—`~()0-9]/g, ' ').split(' ');
         for (var j = 0; j < splittedWord.length; j++) {
             if (splittedWord[j]) {
                 words_array.push(splittedWord[j]);
@@ -20,7 +20,7 @@ function extractWordsFromText (text) {
     return words_array;
 }
 
-function normalizeWords (words_array) {
+function normalizeWords(words_array) {
     var ends = [
         'иями', 'ьев', 'хим', 'ами', 'ими', 'ыми', 'ьми', 'ями', 'ией',
         'аей', 'еей', 'ьей', 'аем', 'еем', 'ием', 'оем', 'уем', 'яем', 'ьем',
@@ -85,7 +85,7 @@ function normalizeWords (words_array) {
     return normalized_words;
 }
 
-function arrayToObject (arr) {
+function arrayToObject(arr) {
     var obj = {};
     for (var i = 0; i < arr.length; i++) {
         obj[arr[i]] = true;

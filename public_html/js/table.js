@@ -1,5 +1,8 @@
-function renderTable (wordsWithRank) {
+function renderTable(wordsWithRank) {
     var tbody = document.getElementById('tbody-rank');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
     wordsWithRank.forEach(function (wordArr) {
         var tr = document.createElement('tr');
         for (var i = 0; i < wordArr.length; i++) {
@@ -12,7 +15,7 @@ function renderTable (wordsWithRank) {
 }
 
 
-function getWordsWithRank (wordsCount) {
+function getWordsWithRank(wordsCount) {
     var sortable = [];
     for (var key in wordsCount)
         if (wordsCount.hasOwnProperty(key))
@@ -27,12 +30,10 @@ function getWordsWithRank (wordsCount) {
         if (i === 0) {
             word.push(rank);
             return word;
-        }
-        else if (word[1] === arr[i - 1][1]) {
+        } else if (word[1] === arr[i - 1][1]) {
             word.push(arr[i - 1][2]);
             return word;
-        }
-        else {
+        } else {
             rank++;
             word.push(rank);
             return word;

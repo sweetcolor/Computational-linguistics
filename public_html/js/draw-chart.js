@@ -4,66 +4,51 @@
  * and open the template in the editor.
  */
 
-function drawChart (freq, rankZones) {
+function drawChart(freq, rankZones) {
     var indexs = [];
     for (var i = 0; i < freq.length; i++) {
         indexs.push(i + 1);
     }
-    var ctx = document.getElementById("chart");
-    if (window.newChart) {
-        window.newChart.destroy();
-    }
-    window.newChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [1,2,3, 5,6,7],
-            datasets: [
-                {
-                    label: "Rank",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    spanGaps: false,
-                    data: [4,6,8]
-                },
-                {
-                    label: "Rank",
-                    labels: [5,6,7],
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    spanGaps: false,
-                    data: [5,10,13]
-                }
-            ]
-        }
-    });
+    var series = createSeriesData(freq, rankZones);
+    createChartObject(indexs, series);
 }
+;
+
+function createChartObject(indexs, series) {
+    var newChart;
+    newChart = (function () {
+        if (newChart) {
+            newChart.destroy();
+        }
+        return new Chartist.Line('.ct-chart', {
+            labels: indexs,
+            series: series
+        }, {
+            fullWidth: true,
+            chartPadding: {
+                right: 10
+            },
+            low: 0,
+            showArea: true
+        });
+    })();
+}
+;
+
+function createSeriesData(freq, rankZones) {
+    var series = [];
+    for (var i = 0; i < rankZones.length; i++) {
+        var zone = rankZones[i];
+        var data = new Array(freq.length);
+        for (var j = zone.begin; j <= zone.end; j++) {
+            data[j - 1] = freq[j - 1];
+        }
+        series.push({
+            'name': zone.cssName,
+            'data': data,
+            'meta': data
+        });
+    }
+    return series;
+}
+;

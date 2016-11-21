@@ -10,7 +10,8 @@ function determineWordsZone(wordsWithRank, wordsQuantity) {
 }
 
 function determRankInZone(wordsZoneQuantity, rank) {
-    var sum = 0, i = 0;
+    var sum = 0, i = 0, begin = 1;
+    var rankCount = 1;
     var rankZone = [];
     for (var key in wordsZoneQuantity) {
         var wordsInZone = wordsZoneQuantity[key];
@@ -18,13 +19,26 @@ function determRankInZone(wordsZoneQuantity, rank) {
         for (; i < rank.length; i++) {
             sum += rank[i][1];
             if (sum >= wordsInZone) {
-                rankZone.push(rank[i][2]);
+                rankZone.push(createRankZone(rankCount++, begin, rank[i][2]));
+                begin = rank[i][2];
                 i++;
                 break;
             }
         }
     }
+    if (begin > rank[rank.length - 1][2]) {
+        begin = rank[rank.length - 1][2];
+    }
+    rankZone.push(createRankZone(rankCount, begin, rank[rank.length - 1][2]));
     return rankZone;
+}
+
+function createRankZone(cssNameNumber, begin, end) {
+    return {
+        'cssName': 'zone' + cssNameNumber,
+        'begin': begin,
+        'end': end
+    };
 }
 
 function determWordsQuantInEachZone(wordsQuantity) {

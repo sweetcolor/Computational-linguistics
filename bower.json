@@ -7,8 +7,7 @@
     "**/*.txt"
   ],
   "dependencies": {
-    "chart.js": "2.4.0",
-    "moment": "^2.16.0"
+    "chartist": "^0.10.1"
   },
   "devDependencies": {}
 }

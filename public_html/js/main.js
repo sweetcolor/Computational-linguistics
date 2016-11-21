@@ -8,21 +8,19 @@
 /**
  * create chart by rank-frequency distribution
  */
-function createChart () {
+function createChart() {
     var text = document.getElementById('input-text').value;
     var words = extractWordsFromText(text);
     var normalizedWords = normalizeWords(words);
     var wordsCount = countingEachWords(normalizedWords);
-    
-    var colors = ['']
     var rank = getWordsWithRank(wordsCount);
+    var rankZone = determineWordsZone(rank, words.length);
     renderTable(rank);
     var freq = makeWordsCountGroup(wordsCount).sort(compareNumbers);
-    drawChart(freq);
-    var rankZone = determineWordsZone(rank, words.length);
+    drawChart(freq, rankZone);
 }
 
-function makeWordsCountGroup (wordsCount) {
+function makeWordsCountGroup(wordsCount) {
     var wordsCountGroup = {};
     var wordsCountGroupArray = [];
     for (var word in wordsCount) {
@@ -34,11 +32,11 @@ function makeWordsCountGroup (wordsCount) {
     return wordsCountGroupArray;
 }
 
-function compareNumbers (a, b) {
+function compareNumbers(a, b) {
     return b - a;
 }
 
-function countingEachWords (words) {
+function countingEachWords(words) {
     var wordsCount = {};
     for (var i = 0; i < words.length; i++) {
         var lowCaseWord = words[i].toLowerCase();
